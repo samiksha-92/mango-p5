@@ -39,7 +39,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
         <a class="navbar-brand" href="#">
-            <img src="{% static 'home/images/logo/MangoMore (1).png' %}" width="100" height="100" />
+            <img src="{% static '/home/images/logo/MangoMore (1).png' %}" width="100" height="100" />
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,9 +105,11 @@
             </ul>
         </div>
     </nav>
+    {% block banner_slider %} {% endblock banner_slider %}
     {% block main-content %} {% endblock main-content %}
 
-    <footer>
+
+    <footer class="container-fluid bg-success fixed-bottom text-center p-2 mt-5">
         Copyright : 2024 | Project By : Samiksha Singh
     </footer>
 
