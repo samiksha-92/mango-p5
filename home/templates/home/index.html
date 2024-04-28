@@ -7,13 +7,16 @@
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="{% static 'home/images/banner/banner/banner1.jpg' %}" class="d-block w-100" alt="...">
+      <img src="{% static 'home/images/banner/banner/banner1.jpg' %}" width="100" height="100"
+        class="d-block w-100 img-fluid" alt="banner image 1">
     </div>
     <div class="carousel-item">
-      <img src="{% static 'home/images/banner/banner/banner2.jpg' %}" class="d-block w-100" alt="...">
+      <img src="{% static 'home/images/banner/banner/banner2.jpg' %}" class="d-block w-100 img-fluid"
+        alt="banner image 2">
     </div>
     <div class="carousel-item">
-      <img src="{% static 'home/images/banner/banner/banner3.jpg' %}" class="d-block w-100" alt="...">
+      <img src="{% static 'home/images/banner/banner/banner3.jpg' %}" class="d-block w-100 img-fluid"
+        alt="banner image 3">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">
@@ -27,5 +30,29 @@
 </div>
 {% endblock banner_slider %}
 
+{% block information %}
+<div class="container">
+  <div class="row bg-success text-center p-5 text-white border-bottom shadow">
+    <h1>Our Products</h1>
+    <small class="fs-5">
+      Welcome to the thriftstore exclusively for your mango favourites.
+      We have a wide vaierty of excellently maintained second hand clothes and bags which yoy can buy at exciting prices
+      all year long.
 
-{% block main-content %}<h1> Welcome To MangoMore</h1> {% endblock main-content %}
+
+    </small>
+  </div>
+</div>
+{% endblock information %}
+
+
+{% block main-content %}
+<div class="container">
+  <h2 class="text-center"> Welcome To MangoMore</h2>
+  <br> </br>
+  <div class="row-container">
+
+  </div>
+</div>
+<br> </br>
+{% endblock main-content %}
