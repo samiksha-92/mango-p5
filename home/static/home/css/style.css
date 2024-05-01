@@ -37,3 +37,13 @@
     background-image: -ms-linear-gradient(rgba(10, 77, 123, 0.1), #fff);
     background-image: -o-linear-gradient(rgba(10, 77, 123, 0.1), #fff);
 }
+
+.center-images {
+    display: flex;
+    justify-content: center;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+}

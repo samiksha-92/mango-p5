@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "home/base.html" %}
 {% load static %}
 
 {% block title %} Home Page {% endblock title %}
@@ -51,46 +51,47 @@
   <h2 class="text-center"> Welcome To MangoMore</h2>
   <br> </br>
   <div class="row-container">
-    <div class="col-md-4 col-sm-4 mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
+    <div class="col mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
       style="animation-duration:1s;animation-delay: 0.6s; animation-name: none;">
       <div class="none image_decor smbg">
         <a href="#">
 
-          <div class="width text-center">
-            <img src="{% static 'home/images/products/model.png' %}" class="img-responsive center-block" alt="">
+          <div class="width text-center image-container">
+            <img src="{% static 'home/images/products/model.png' %}" class="img-fluid" alt="">
             <p class="pro"> Shirts</p>
           </div>
         </a>
       </div>
+    </div>
 
-      <div class="col-md-4 col-sm-4 mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
-        style="animation-duration:1s;animation-delay: 0.6s; animation-name: none;">
-        <div class="none image_decor middle">
-          <a href="#">
+    <div class="col mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
+      style="animation-duration:1s;animation-delay: 0.6s; animation-name: none;">
+      <div class="none image_decor middle">
+        <a href="#">
 
-            <div class="width text-center">
-              <img src="{% static 'home/images/products/dresses.png' %}" class="img-responsive center-block" alt="">
-              <p class="pro"> Dresses</p>
-            </div>
-          </a>
-        </div>
-        <div class="col-md-4 col-sm-4 mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
-          style="animation-duration:1s;animation-delay: 0.6s; animation-name: none;">
-          <div class="none image_decor image_decor">
-            <a href="#">
-
-              <div class="width text-center">
-                <img src="{% static 'home/images/products/accessory.png' %}" class="img-responsive center-block" alt="">
-                <p class="pro"> Accessories </p>
-              </div>
-            </a>
+          <div class="width text-center">
+            <img src="{% static 'home/images/products/dresses.png' %}" class="img-fluid" alt="">
+            <p class=" pro"> Dresses</p>
           </div>
+        </a>
+      </div>
+    </div>
+    <div class="col mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
+      style="animation-duration:1s;animation-delay: 0.6s; animation-name: none;">
+      <div class="none image_decor image_decor">
+        <a href="#">
 
-        </div>
-
+          <div class="width text-center">
+            <img src="{% static 'home/images/products/accessory.png' %}" class="img-fluid" alt="">
+            <p class=" pro"> Accessories </p>
+          </div>
+        </a>
       </div>
 
     </div>
+
   </div>
-  <br> </br>
-  {% endblock main-content %}
+</div>
+
+<br> </br>
+{% endblock main-content %}
