@@ -1,4 +1,5 @@
 from urllib import request
+from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
@@ -13,6 +14,7 @@ class CategoryView(View):
         context = {
             'category' : category,
             'product' : Products.objects.filter(category=category),
+            'title' : Products.objects.filter(category=category).values('title'),
             
         }
         
