@@ -8,5 +8,8 @@ def index(request):
     return render (request,'home/index.html')
 
 class CategoryView(View):
-    def get(self,request):
-        return render(request,'home/category.html')
+    def get(self,request,category):
+        context = {
+            'category' : category,
+        }
+        return render(request,'home/category.html',context)
