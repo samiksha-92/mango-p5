@@ -2,6 +2,7 @@ from urllib import request
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
+from  .models import Products
 
 # Create your views here.
 def index(request):
@@ -11,5 +12,9 @@ class CategoryView(View):
     def get(self,request,category):
         context = {
             'category' : category,
+            'product' : Products.objects.filter(category=category),
+            
         }
+        
+
         return render(request,'home/category.html',context)
