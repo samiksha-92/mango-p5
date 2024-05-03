@@ -1,7 +1,7 @@
 from urllib import request
 from django.db.models import Count
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.views import View
 from  .models import Products
 
@@ -18,5 +18,13 @@ class CategoryView(View):
             
         }
         
-
         return render(request,'home/category.html',context)
+
+
+class ProductDetail(View):
+    def get (self,request,pk):
+        product = get_object_or_404(Products,pk=pk)
+        context = {'product' : product}
+        
+        return render(request,'home/productdetail.html', context)
+
