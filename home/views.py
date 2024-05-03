@@ -13,7 +13,7 @@ class CategoryView(View):
     def get(self,request,category):
         context = {
             'category' : category,
-            'product' : Products.objects.filter(category=category),
+            'product_queryset' : Products.objects.filter(category=category),
             'title' : Products.objects.filter(category=category).values('title'),
             
         }
