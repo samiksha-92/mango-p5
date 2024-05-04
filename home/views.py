@@ -28,3 +28,24 @@ class ProductDetail(View):
         
         return render(request,'home/productdetail.html', context)
 
+
+class CategoryTitle(View):
+    def get (self,request,title):
+        product_queryset_category_titles = Products.objects.filter(title=title)
+        product_individual_category_title = None
+        if product_queryset_category_titles.exists():
+            product_individual_category_title = product_queryset_category_titles[0].category
+
+        context = {
+            'title': title,
+            'product_queryset_category_titles': product_queryset_category_titles,
+            'product_individual_category_title': product_individual_category_title,
+        }
+
+        return render (request, 'home/category.html',context)
+
+
+
+
+
+

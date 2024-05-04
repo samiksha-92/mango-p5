@@ -21,3 +21,4 @@ class Products (models.Model):
     product_image = models.ImageField(upload_to = 'product')
     def __str__(self):
         return self.title
+        
