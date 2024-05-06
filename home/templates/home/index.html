@@ -54,7 +54,7 @@
     <div class="col mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
       style="animation-duration:1s;animation-delay: 0.6s; animation-name: none;">
       <div class="none image_decor smbg">
-        <a href="#">
+        <a href="{% url 'category' 'SH' %}">
 
           <div class="width text-center image-container">
             <img src="{% static 'home/images/products/model.png' %}" class="img-fluid" alt="">
@@ -67,7 +67,7 @@
     <div class="col mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
       style="animation-duration:1s;animation-delay: 0.6s; animation-name: none;">
       <div class="none image_decor middle">
-        <a href="#">
+        <a href="{% url 'category' 'DR' %}">
 
           <div class="width text-center">
             <img src="{% static 'home/images/products/dresses.png' %}" class="img-fluid" alt="">
@@ -79,12 +79,14 @@
     <div class="col mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
       style="animation-duration:1s;animation-delay: 0.6s; animation-name: none;">
       <div class="none image_decor image_decor">
-        <a href="#">
+        <a href="{% url 'category' 'ACC' %}">
 
           <div class="width text-center">
             <img src="{% static 'home/images/products/accessory.png' %}" class="img-fluid" alt="">
+
             <p class=" pro"> Accessories </p>
           </div>
+
         </a>
       </div>
 

@@ -1,18 +1,22 @@
 {% extends "home/base.html" %}
 {% load static %}
 
-
 {% block title %} Category {% endblock title %}
 
 {% block main-content %}
 <div class="container my-5">
     <div class="row">
         <div class="col-sm-3">
-            {% for category in title %}
-
-            <a href="{% url 'category-title' category.title|slugify %}" class="list-group-item list-group-item-action"
-                aria-current="true>">{{category.title}}</a>
-            {% endfor %}
+            <form method="get">
+                <label for="sort_by">Sort By:</label>
+                <select name="sort_by" id="sort_by">
+                    <option value="">-- Select --</option>
+                    <option value="price_low">Price Low to High</option>
+                    <option value="price_high">Price High to Low</option>
+                    <option value="color">Color</option>
+                </select>
+                <button type="submit">Apply</button>
+            </form>
         </div>
         <div class="col-sm-9">
             <div class="row">
@@ -20,22 +24,18 @@
                 <div class="col text-center mb-4">
                     <a href="{% url 'product-detail' product.id %}" class="btn">
                         <div>
-                            <img src="{{product.product_image.url}}" width="300px" height="200px" />
-                            <div class="fw-bold">{{product.title}}</div>
+                            <img src="{{ product.product_image.url }}" width="300px" height="200px" />
+                            <div class="fw-bold">{{ product.title }}</div>
                             <div class="fw-bold text-danger">
-                                Rs.{{product.discounted_price}}/-
-                                <small class="fw-light text-decoration-line-through">{{product.selling_price}}</small>
+                                Rs.{{ product.discounted_price }}/-
+                                <small class="fw-light text-decoration-line-through">{{ product.selling_price }}</small>
                             </div>
                         </div>
                     </a>
                 </div>
-
-
-
                 {% endfor %}
             </div>
         </div>
-
     </div>
 </div>
 {% endblock main-content %}

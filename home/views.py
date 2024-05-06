@@ -1,4 +1,5 @@
 from urllib import request
+from django.db.models import F
 from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import render,get_object_or_404
@@ -8,6 +9,10 @@ from  .models import Products
 # Create your views here.
 def index(request):
     return render (request,'home/index.html')
+
+def about(request):
+    return render (request,'home/about.html')    
+
 
 class CategoryView(View):
     def get(self,request,category):
@@ -30,22 +35,30 @@ class ProductDetail(View):
 
 
 class CategoryTitle(View):
-    def get (self,request,title):
-        product_queryset_category_titles = Products.objects.filter(title=title)
-        product_individual_category_title = None
-        if product_queryset_category_titles.exists():
-            product_individual_category_title = product_queryset_category_titles[0].category
-
-        context = {
-            'title': title,
-            'product_queryset_category_titles': product_queryset_category_titles,
-            'product_individual_category_title': product_individual_category_title,
+    def get(self, request, category):
+        sort_by = request.GET.get('sort_by')
+        products = Products.objects.filter(title=category)
+    
+        if sort_by == 'price_low':
+            products = products.order_by('discounted_price')
+        elif sort_by == 'price_high':
+            products = products.order_by('-discounted_price')
+        elif sort_by == 'color':
+            products = products.order_by('color')  # Assuming there's a 'color' field in your model
+    
+        context ={
+            'category' : category,
+            'product_queryset' :products
         }
 
-        return render (request, 'home/category.html',context)
+        return render(request, 'home/category.html', context)
+    
 
+    
 
-
+# class CategoryTitle(View):
+#     def get(self, request, title):
+#         print("Title:", title)
 
 
 
