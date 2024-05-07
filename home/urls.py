@@ -25,6 +25,8 @@ urlpatterns = [
     path('category-title/<category>/', views.CategoryTitle.as_view(), name='category-title'),
     path('category/<slug:category>/',views.CategoryView.as_view(),name ='category'),
     path('product-detail/<int:pk>/',views.ProductDetail.as_view(),name = 'product-detail'),
+    #login authentication
+    path('customer-registration/', views.CustomerRegistrationView.as_view(), name='customer-registration'),
 ]+ static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
 
 

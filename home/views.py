@@ -1,10 +1,12 @@
 from urllib import request
-from django.db.models import F
+
 from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import render,get_object_or_404
 from django.views import View
 from  .models import Products
+from .forms import CustomerRegistrationForm
+
 
 # Create your views here.
 def index(request):
@@ -53,6 +55,17 @@ class CategoryTitle(View):
 
         return render(request, 'home/category.html', context)
     
+
+
+
+
+class CustomerRegistrationView(View):
+    def get(self, request):
+        form = CustomerRegistrationForm()
+        context = {
+            'form': form,
+        }
+        return render (request,'home/customerregistration.html',context)
 
     
 
