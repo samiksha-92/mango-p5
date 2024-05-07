@@ -27,6 +27,7 @@ urlpatterns = [
     path('product-detail/<int:pk>/',views.ProductDetail.as_view(),name = 'product-detail'),
     #login authentication
     path('customer-registration/', views.CustomerRegistrationView.as_view(), name='customer-registration'),
+    path('success/', views.success_page, name='success-page'),
 ]+ static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
 
 

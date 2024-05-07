@@ -6,6 +6,8 @@ from django.shortcuts import render,get_object_or_404
 from django.views import View
 from  .models import Products
 from .forms import CustomerRegistrationForm
+from django.contrib import messages
+from django.shortcuts import redirect
 
 
 # Create your views here.
@@ -57,6 +59,9 @@ class CategoryTitle(View):
     
 
 
+def success_page(request):
+    return render(request, 'home/success.html')
+
 
 
 class CustomerRegistrationView(View):
@@ -66,6 +71,21 @@ class CustomerRegistrationView(View):
             'form': form,
         }
         return render (request,'home/customerregistration.html',context)
+    def post(self,request):
+        form = CustomerRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Congratulations! You registered successfully")
+            return redirect('success-page')  # Redirect to the success page
+        else:
+            messages.error(request,"Invalid Input Data")
+            context = {
+            'form' : form
+            }
+            return render(request,'home/customerregistration.html',context)
+        return render(request,'home/customerregistration.html') 
+
+
 
     
 
