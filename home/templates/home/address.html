@@ -1,0 +1,53 @@
+{% extends 'home/base.html' %}
+{% block title %}Address{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm-2 border-end">
+            <h3>User</h3>
+            <p>Welcome <span class="text-capitalize">{{ request.user }}</span></p>
+            <ul class="list-unstyled">
+                <li class="d-grid"><a href="{% url 'profile' %}" class="btn">Profile</a></li>
+
+                <li class="d-grid"><a href="#" class="btn btn-success">Update
+                        Address</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-10">
+            <h3>Your Address</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Locality</th>
+                        <th>City</th>
+                        <th>Mobile</th>
+                        <th>State</th>
+                        <th>Zipcode</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for addr in address %}
+                    <tr>
+                        <td>{{ addr.name }}</td>
+                        <td>{{ addr.locality }}</td>
+                        <td>{{ addr.city }}</td>
+                        <td>{{ addr.mobile }}</td>
+                        <td>{{ addr.state }}</td>
+                        <td>{{ addr.zipcode }}</td>
+                        <td>
+                            <a href="{% url 'updateAddress' pk=addr.id %}" class="btn btn-sm btn-info">Update</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6">No address found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

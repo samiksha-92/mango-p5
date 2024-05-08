@@ -114,13 +114,35 @@ class ProfileView(View):
         return render(request,'home/profile.html',context)
 
 
-
+def address(request):
+    address = Customer.objects.filter(user = request.user)
+    context = {
+        'address' : address
+    }
+    return render(request,'home/address.html',context)
 
     
+class updateAddress(View):
+    def get(self,request,pk):
+        form = CustomerProfileForm()
+        context = {
+            'form' : form
+        }
+        return render(request,'home/updateaddress.html',context)
 
-# class CategoryTitle(View):
-#     def get(self, request, title):
-#         print("Title:", title)
+
+    def post(self,request,pk):
+        pass
+
+
+
+
+
+
+
+
+
+
 
 
 
