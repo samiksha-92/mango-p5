@@ -33,7 +33,7 @@ urlpatterns = [
     #login authentication
     path('customer-registration/', views.CustomerRegistrationView.as_view(), name='customer-registration'),
     #login 
-    path('accounts/login/', auth_view.LoginView.as_view(template_name='home/login.html', authentication_form=LoginForm) , name='login'),
+    path('login/', auth_view.LoginView.as_view(template_name='home/login.html', authentication_form=LoginForm) , name='login'),
     path('success/', views.success_page, name='success-page'),
     #password reset
     path('password-reset/', auth_view.PasswordResetView.as_view(template_name='home/password_reset.html', form_class=MyPasswordResetForm) , name='password_reset'),

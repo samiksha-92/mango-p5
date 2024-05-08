@@ -4,7 +4,7 @@ from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import render,get_object_or_404
 from django.views import View
-from  .models import Products
+from  .models import Products,Customer
 from .forms import CustomerProfileForm,CustomerRegistrationForm
 from django.contrib import messages
 from django.shortcuts import redirect
@@ -95,7 +95,22 @@ class ProfileView(View):
         return render(request,'home/profile.html',context)
 
     def post(self,request):
-        context = {}
+        form = CustomerProfileForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            name = form.cleaned_data.get('name', '')  # Use get() method to safely access the value
+            locality = form.cleaned_data.get('locality', '')
+            city = form.cleaned_data.get('city', '')
+            mobile = form.cleaned_data.get('mobile', '')
+            state = form.cleaned_data.get('state', '')
+            zipcode = form.cleaned_data.get('zipcode', '')
+
+            reg = Customer(user=user, name=name, locality=locality, mobile=mobile, city=city, state=state, zipcode=zipcode)
+            reg.save()
+            messages.success(request, "Profile saved")
+        else:
+            messages.warning(request,"Invalid Input Data")    
+        context = {'form' : form}
         return render(request,'home/profile.html',context)
 
 
