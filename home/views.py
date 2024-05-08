@@ -78,12 +78,23 @@ class CustomerRegistrationView(View):
             messages.success(request,"Congratulations! You registered successfully")
             return redirect('success-page')  # Redirect to the success page
         else:
-            messages.error(request,"Invalid Input Data")
+            messages.warning(request,"Invalid Input Data")
             context = {
             'form' : form
             }
             return render(request,'home/customerregistration.html',context)
         return render(request,'home/customerregistration.html') 
+
+
+class ProfileView(View):
+    def get(self, request):
+        context = {}
+        return render(request,'home/profile.html',context)
+
+    def post(self,request):
+        context = {}
+        return render(request,'home/profile.html',context)
+
 
 
 
