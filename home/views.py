@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render,get_object_or_404
 from django.views import View
 from  .models import Products
-from .forms import CustomerRegistrationForm
+from .forms import CustomerProfileForm,CustomerRegistrationForm
 from django.contrib import messages
 from django.shortcuts import redirect
 
@@ -88,7 +88,10 @@ class CustomerRegistrationView(View):
 
 class ProfileView(View):
     def get(self, request):
-        context = {}
+        form = CustomerProfileForm()
+        context = {
+            'form' : form
+        }
         return render(request,'home/profile.html',context)
 
     def post(self,request):

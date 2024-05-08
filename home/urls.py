@@ -28,6 +28,8 @@ urlpatterns = [
     path('category/<slug:category>/',views.CategoryView.as_view(),name ='category'),
     path('product-detail/<int:pk>/',views.ProductDetail.as_view(),name = 'product-detail'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
+    path('address/', views.ProfileView.as_view(), name='address'),
+    
     #login authentication
     path('customer-registration/', views.CustomerRegistrationView.as_view(), name='customer-registration'),
     #login 
