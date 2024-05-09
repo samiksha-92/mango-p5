@@ -37,6 +37,8 @@ urlpatterns = [
     #login 
     path('login/', auth_view.LoginView.as_view(template_name='home/login.html', authentication_form=LoginForm) , name='login'),
     path('success/', views.success_page, name='success-page'),
+    path('logout/', auth_view.LogoutView.as_view(next_page='login') , name='logout'),
+    
     #password reset
     path('password-reset/', auth_view.PasswordResetView.as_view(template_name='home/password_reset.html', form_class=PasswordResetForm) , name='password_reset'),
     path('passwordchange/', auth_view.PasswordChangeView.as_view(template_name='home/changepassword.html', form_class=PasswordChangeForm, success_url='/passwordchangecomplete') , name='passwordchange'),
