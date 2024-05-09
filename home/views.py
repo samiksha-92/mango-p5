@@ -8,6 +8,8 @@ from  .models import Products,Customer
 from .forms import CustomerProfileForm,CustomerRegistrationForm
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 # Create your views here.
@@ -84,6 +86,12 @@ class CustomerRegistrationView(View):
             }
             return render(request,'home/customerregistration.html',context)
         return render(request,'home/customerregistration.html') 
+
+
+
+    
+
+
 
 
 class ProfileView(View):

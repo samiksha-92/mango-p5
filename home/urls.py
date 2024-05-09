@@ -19,7 +19,8 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_view
-from .forms import LoginForm, MyPasswordResetForm
+from .forms import LoginForm, PasswordResetForm, PasswordChangeForm
+
 
 urlpatterns = [
     path('',views.index,name = 'home'),
@@ -37,7 +38,10 @@ urlpatterns = [
     path('login/', auth_view.LoginView.as_view(template_name='home/login.html', authentication_form=LoginForm) , name='login'),
     path('success/', views.success_page, name='success-page'),
     #password reset
-    path('password-reset/', auth_view.PasswordResetView.as_view(template_name='home/password_reset.html', form_class=MyPasswordResetForm) , name='password_reset'),
+    path('password-reset/', auth_view.PasswordResetView.as_view(template_name='home/password_reset.html', form_class=PasswordResetForm) , name='password_reset'),
+    path('passwordchange/', auth_view.PasswordChangeView.as_view(template_name='home/changepassword.html', form_class=PasswordChangeForm, success_url='/passwordchangecomplete') , name='passwordchange'),
+    path('passwordchangecomplete/', auth_view.PasswordChangeDoneView.as_view(template_name='home/passwordchangecomplete.html') , name='passwordchangecomplete'),
+   
 
 ]+ static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
 
