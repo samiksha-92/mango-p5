@@ -156,10 +156,8 @@ class updateAddress(View):
         return redirect("address")
 
 
-
-
-
-
+def add_to_cart(request):
+    pass
 
 
 

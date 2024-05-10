@@ -75,3 +75,13 @@ class Customer(models.Model):
     state = models.CharField(choices=STATE_CHOICES,max_length=100)
     def __str__(self):
         return self.name
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    products = models.ForeignKey(Products,on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    @property
+    def total_cost(self):
+        return self.quantity * self.products.discounted_price        

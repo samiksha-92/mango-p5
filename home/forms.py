@@ -1,8 +1,9 @@
 
 from django import forms
-from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,UsernameField,PasswordResetForm,PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,UsernameField,PasswordResetForm,PasswordChangeForm,SetPasswordForm
 from django.contrib.auth.models import User
 from .models import Customer
+from django.views.decorators.csrf import csrf_protect
 
 from django.shortcuts import render
 
@@ -30,7 +31,13 @@ class PasswordChangeForm(PasswordChangeForm):
     new_password1 = forms.CharField( widget=forms.PasswordInput(attrs={'autocomplete':'current-password','class':'form-control'}))
     new_password2 = forms.CharField( widget=forms.PasswordInput(attrs={'autocomplete':'current-password','class':'form-control'}))
 
-    
+ 
+class PasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control'}))
+
+class SetPasswordForm(SetPasswordForm):
+    new_password1 = forms.CharField(label='New Password', widget=forms.PasswordInput(attrs={'autocomplete':'current-password','class':'form-control'}))
+    new_password2 = forms.CharField(label='Confirm New Password', widget=forms.PasswordInput(attrs={'autocomplete':'current-password','class':'form-control'}))
 
 
 class CustomerProfileForm(forms.ModelForm):
