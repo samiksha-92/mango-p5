@@ -4,7 +4,7 @@ from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import render,get_object_or_404
 from django.views import View
-from  .models import Products,Customer
+from  .models import Products,Customer,Cart
 from .forms import CustomerProfileForm,CustomerRegistrationForm
 from django.contrib import messages
 from django.shortcuts import redirect
@@ -157,9 +157,16 @@ class updateAddress(View):
 
 
 def add_to_cart(request):
-    pass
+    user = request.user
+    product_id = request.GET.get('prod_id')
+    product = product.objects.get(id= prod_id)
+    Cart(user =user, product=product).save()
+    return redirect("/cart")
 
-
+def show_cart(request):
+    user = request.user
+    cart = Cart.objects.filter(user=user)
+    return render (request,"home/addtocart.html",locals())
 
 
 
