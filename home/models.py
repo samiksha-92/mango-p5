@@ -79,9 +79,9 @@ class Customer(models.Model):
 
 class Cart(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    products = models.ForeignKey(Products,on_delete=models.CASCADE)
+    product = models.ForeignKey(Products,on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 
     @property
     def total_cost(self):
-        return self.quantity * self.products.discounted_price   #products not product 
+        return self.quantity * self.products.discounted_price   

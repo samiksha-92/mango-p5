@@ -41,9 +41,11 @@ urlpatterns = [
 
 
     path('add-to-cart/', views.add_to_cart, name='add-to-cart'),
-    #path('cart/', views.show_cart, name='showcart'),
-    
-    
+    path('cart/', views.show_cart, name='showcart'),
+    path('checkout/', views.checkout.as_view(), name='checkout'),
+    path('pluscart/', views.plus_cart,name = 'plus_cart'),
+    path('minuscart/', views.minus_cart,name = 'minus_cart'), 
+    path('removecart/', views.remove_cart,name = 'remove_cart'),
     #password reset
     path('passwordreset/done/', auth_view.PasswordResetDoneView.as_view(template_name='home/passwordresetdone.html') , name='password_reset_done'),
     path('passwordresetconfirm/<uidb64>/<token>/', auth_view.PasswordResetConfirmView.as_view(template_name='home/passwordresetconfirm.html',form_class=SetPasswordForm) , name='password_reset_confirm'),

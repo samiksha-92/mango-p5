@@ -10,6 +10,11 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.forms import PasswordChangeForm
+from django.http import JsonResponse
+from django.db.models import Q
+from django.core.exceptions import MultipleObjectsReturned
+from django.core.exceptions import ObjectDoesNotExist
+
 
 
 # Create your views here.
@@ -159,16 +164,147 @@ class updateAddress(View):
 def add_to_cart(request):
     user = request.user
     product_id = request.GET.get('prod_id')
-    product = product.objects.get(id= prod_id)
-    Cart(user =user, product=product).save()
+    product = Products.objects.get(id= product_id)
+    Cart.objects.create(user=user, product=product)
     return redirect("/cart")
 
 def show_cart(request):
     user = request.user
     cart = Cart.objects.filter(user=user)
-    return render (request,"home/addtocart.html",locals())
+    amount = 0
+    for p in cart:
+        value = p.quantity * p.product.discounted_price
+        amount = amount + value
+    totalamount = amount + 40
+    return render (request, 'home/addtocart.html', locals())
+
+class checkout(View):
+    def get(self,request):
+        return render(request, 'home/checkout.html',locals())
+   
 
 
+
+def plus_cart(request):
+    if request.method == 'GET':
+        prod_id = request.GET.get('prod_id')
+        user = request.user
+        
+        # Retrieve the product
+        try:
+            product = Products.objects.get(id=prod_id)
+        except Product.DoesNotExist:
+            return JsonResponse({'error': 'Product does not exist'}, status=400)
+        
+        # Check if the cart item already exists for the specified product and user
+        try:
+            cart_item = Cart.objects.get(product=product, user=user)
+            # If the cart item exists, update the quantity
+            cart_item.quantity += 1
+            cart_item.save()
+        except Cart.DoesNotExist:
+            # If the cart item does not exist, create a new cart item with quantity 1
+            Cart.objects.create(product=product, user=user, quantity=1)
+        
+        # Calculate amount and total amount
+        cart = Cart.objects.filter(user=user)
+        amount = sum(p.quantity * p.product.discounted_price for p in cart)
+        totalamount = amount + 40
+        
+        # Prepare data to be sent in the JSON response
+        data = {
+            'quantity': cart_item.quantity if cart_item else 1,  # Return 1 if cart item does not exist
+            'amount': amount,
+            'totalamount': totalamount
+        }
+        return JsonResponse(data)
+
+            
+
+
+# def plus_cart(request):
+#     if request.method == 'GET':
+#         prod_id = request.GET['prod_id']
+#         user = request.user
+#         carts = Cart.objects.filter(Q(product=prod_id) & Q(user=user))
+        
+#         if carts.exists():
+#             # Assuming you want to update the first cart item found
+#             c = carts.first()
+#             c.quantity += 1
+#             c.save()
+            
+#             cart = Cart.objects.filter(user=user)
+#             amount = sum(p.quantity * p.product.discounted_price for p in cart)
+#             totalamount = amount + 40
+#             data = {
+#                 'quantity': c.quantity,
+#                 'amount': amount,
+#                 'totalamount': totalamount
+#             }
+#             return JsonResponse(data)
+#         else:
+#             # Handle case where no cart item is found
+#             return JsonResponse({'error': 'No cart item found for the specified product and user'})
+
+
+
+def minus_cart(request):
+    if request.method == 'GET':
+        prod_id = request.GET.get('prod_id')
+
+        try:
+            # Attempt to get the Cart object for the given product ID and user
+            c = Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
+        except Cart.MultipleObjectsReturned:
+            # Handle the case where multiple Cart objects are returned
+            # Log the error or return an appropriate response
+            return JsonResponse({'error': 'Multiple Cart objects found for the specified product and user'})
+
+        except Cart.DoesNotExist:
+            # Handle the case where the Cart object does not exist
+            return JsonResponse({'error': 'Cart object does not exist for the specified product and user'})
+
+        # Ensure quantity is not reduced below 0
+        if c.quantity > 0:
+            c.quantity -= 1
+            c.save()
+        else:
+            # Delete the cart item if the quantity reaches 0
+            c.delete()
+        
+        # Calculate amount and total amount
+        cart = Cart.objects.filter(user=request.user)
+        amount = sum(p.quantity * p.product.discounted_price for p in cart)
+        totalamount = amount + 40
+        
+        # Prepare data to be sent in the JSON response
+        data = {
+            'quantity': c.quantity if c.quantity > 0 else 0,  # Return 0 if quantity is 0 after decrement
+            'amount': amount,
+            'totalamount': totalamount
+        }
+        return JsonResponse(data)
+
+
+
+def remove_cart(request):
+    if request.method == 'GET':
+        prod_id=request.GET['prod_id']
+        c = Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
+        c.delete()
+        user = request.user
+        cart = Cart.objects.filter(user=user)
+        amount = 0
+        for p in cart:
+            value = p.quantity * p.product.discounted_price
+            amount = amount + value
+        totalamount = amount + 40
+        data={
+            'amount':amount,
+            'totalamount':totalamount
+        }
+        return JsonResponse(data)             
 
 
 
