@@ -61,3 +61,32 @@ $('.remove-cart').click(function () {
         }
     })
 })
+
+
+
+// Wait for the document to be fully loaded
+$(document).ready(function () {
+    // Add event listener to show the toast when the form is submitted
+    $('#add-to-cart-form').on('submit', function (event) {
+        // Prevent the default form submission
+        event.preventDefault();
+
+        // Perform an AJAX request to add the product to the cart
+        $.ajax({
+            type: 'GET',
+            url: '/add-to-cart',
+            data: $(this).serialize(), // Serialize the form data
+            success: function () {
+                // If the request is successful, display the toast message
+                console.log('Before toast initialization');
+                var toast = new bootstrap.Toast(document.getElementById('toastMessage'));
+                toast.show();
+                console.log('After toast initialization');
+            },
+            error: function () {
+                // If there's an error, log it to the console
+                console.error('Error adding item to cart.');
+            }
+        });
+    });
+});

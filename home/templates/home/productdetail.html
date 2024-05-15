@@ -23,11 +23,23 @@
 
             </ul>
 
-            <form action=" /add-to-cart" class="d-inline">
+            <form action=" /add-to-cart" class="d-inline" id="add-to-cart-form">
                 <input type="hidden" name="prod_id" value={{product.id}} />
                 <button type="submit" class="btn btn-primary shadow px-5 py-2"> Add to
                     Cart</button>
             </form>
+            <div class="toast" id="toastMessage" role="alert" aria-live="assertive" aria-atomic="true"
+                data-delay="2000">
+                <div class="toast-header">
+                    <strong class="mr-auto">Notification</strong>
+                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="toast-body">
+                    Product added to cart!
+                </div>
+            </div>
             <a href="{% url 'showcart' %}" class="btn btn-warning shadow px-5 py-2 ms-4">
                 Buy Now
 
