@@ -9,6 +9,7 @@ from .forms import CustomerProfileForm,CustomerRegistrationForm
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import JsonResponse
 from django.db.models import Q
@@ -127,12 +128,25 @@ class ProfileView(View):
         return render(request,'home/profile.html',context)
 
 
+# def address(request):
+#     address = Customer.objects.filter(user = request.user)
+#     context = {
+#         'address' : address
+#     }
+#     return render(request,'home/address.html',context)
+
+from django.contrib.auth.decorators import login_required
+
+@login_required
 def address(request):
-    address = Customer.objects.filter(user = request.user)
+    print("User:", request.user)  # Debugging statement
+    address = Customer.objects.filter(user=request.user)
+    print("Addresses:", address)  # Debugging statement
     context = {
-        'address' : address
+        'address': address
     }
-    return render(request,'home/address.html',context)
+    return render(request, 'home/address.html', context)
+
 
     
 class updateAddress(View):
@@ -236,14 +250,20 @@ def show_cart(request):
 class checkout(View):
     def get(self,request):
         user = request.user
-        add = Customer.objects.filter(user=user)
+        addresses = Customer.objects.filter(user=user)
         cart_items=Cart.objects.filter(user=user)  
-        famount = 0
-        for p in cart_items:
-            value = p.quantity * p.product.discounted_price
-            famount = famount + value
-        totalamount = famount + 40
-        return render(request, 'home/checkout.html',locals())
+        total_amount = 0
+        for item in cart_items:
+            value = item.quantity * item.product.discounted_price
+            total_amount += value
+        total_amount += 40
+        context = {
+            'user': user,
+            'addresses': addresses,
+            'cart_items': cart_items,
+            'total_amount': total_amount
+        }
+        return render(request, 'home/checkout.html',context)
    
 
 

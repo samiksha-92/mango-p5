@@ -3,6 +3,10 @@
 {% block main-content %}
 <div class="container my-5">
     <div class="row">
+        <!-- Debugging statements -->
+        {{ request.user }}
+        {{ address }}
+        <!-- End of debugging statements -->
         <div class="col-sm-2 border-end">
             <h3>User</h3>
             <p>Welcome <span class="text-capitalize">{{ request.user }}</span></p>

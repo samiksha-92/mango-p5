@@ -90,3 +90,31 @@ $(document).ready(function () {
         });
     });
 });
+
+
+// Wait for the document to be fully loaded
+$(document).ready(function () {
+    // Add event listener to show the toast when the form is submitted
+    $('#add-to-cart-form').on('submit', function (event) {
+        // Prevent the default form submission
+        event.preventDefault();
+
+        // Perform an AJAX request to add the product to the cart
+        $.ajax({
+            type: 'GET',
+            url: '/add-to-cart',
+            data: $(this).serialize(), // Serialize the form data
+            success: function (data) {
+                // If the request is successful, display the toast message
+                var toast = new bootstrap.Toast(document.getElementById('toastMessage'));
+                // Update the toast message content with the shopping cart preview
+                $('#cartPreview').html(data.cartPreview);
+                toast.show();
+            },
+            error: function () {
+                // If there's an error, log it to the console
+                console.error('Error adding item to cart.');
+            }
+        });
+    });
+});

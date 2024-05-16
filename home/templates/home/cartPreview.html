@@ -1,0 +1,23 @@
+<div id="cartPreview">
+    {% if cart_items %}
+    <div class="cart-preview card">
+        <div class="card-header bg-primary text-white">
+            <h5 class="card-title">Your Shopping Cart:</h5>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                {% for item in cart_items %}
+                <li class="list-group-item">{{ item.product.title }} - Quantity: {{ item.quantity }}</li>
+                {% endfor %}
+            </ul>
+            <a href="{% url 'show_cart' %}" class="btn btn-primary mt-3">View Cart</a>
+        </div>
+    </div>
+    {% else %}
+    <div class="cart-preview card">
+        <div class="card-body">
+            <p>Your shopping cart is empty.</p>
+        </div>
+    </div>
+    {% endif %}
+</div>
