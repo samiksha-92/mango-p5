@@ -4,7 +4,7 @@ from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import render,get_object_or_404
 from django.views import View
-from  .models import Products,Customer,Cart
+from  .models import Products,Customer,Cart,Payment,OrderPlaced
 from .forms import CustomerProfileForm,CustomerRegistrationForm
 from django.contrib import messages
 from django.shortcuts import redirect
@@ -15,6 +15,8 @@ from django.http import JsonResponse
 from django.db.models import Q
 from django.core.exceptions import MultipleObjectsReturned
 from django.core.exceptions import ObjectDoesNotExist
+import razorpay
+from django.conf import settings
 
 
 
@@ -183,7 +185,7 @@ class updateAddress(View):
 #     return redirect("/cart")
 
 
-from django.db.models import Q
+# from django.db.models import Q
 
 def add_to_cart(request):
     user = request.user
@@ -247,8 +249,46 @@ def show_cart(request):
     totalamount = amount + 40
     return render (request, 'home/addtocart.html', locals())
 
+# class checkout(View):
+#     def get(self,request):
+#         user = request.user 
+#         addresses = Customer.objects.filter(user=user) 
+#         cart_items = Cart.objects.filter(user=user)  
+        
+#         # Calculate total amount
+#         total_amount = sum(item.quantity * item.product.discounted_price for item in cart_items) + 40
+        
+#         # Razorpay integration
+#         razorpay_client = razorpay.Client(auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
+#         razor_amount = int(total_amount * 100)
+#         razor_data = {"amount": razor_amount, "currency": "INR", "receipt": "order_rcptid_12"}
+#         payment_response = razorpay_client.order.create(data=razor_data) #prints the payment response
+#         order_id = payment_response['id']
+#         order_status = payment_response['status']
+        
+#         # Save payment information
+#         if order_status == 'created':
+#              payment = Payment(
+#                  user=user,
+#                  amount=total_amount,
+#                  razorpay_order_id=order_id,
+#                  razorpay_payment_status=order_status
+#              )
+#              payment.save()
+        
+#         context = {
+           
+#             'user': user,
+#             'addresses': addresses,
+#             'cart_items': cart_items,
+#             'total_amount': total_amount,
+#             'razoramount': razor_amount,
+#             'order_id': order_id,
+#         }
+#         return render(request, 'home/checkout.html', context)
+
 class checkout(View):
-    def get(self,request):
+     def get(self,request):
         user = request.user
         addresses = Customer.objects.filter(user=user)
         cart_items=Cart.objects.filter(user=user)  
@@ -257,52 +297,57 @@ class checkout(View):
             value = item.quantity * item.product.discounted_price
             total_amount += value
         total_amount += 40
+        razoramount = int(total_amount * 100)
+        client = razorpay.Client(auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
+        data = { "amount": razoramount, "currency": "INR", "receipt": "order_rcptid_12"}
+        payment_response = client.order.create(data=data)
+        print(payment_response)
+        {'id': 'order_OBWNt85ppmEius', 'entity': 'order', 'amount': 5500, 'amount_paid': 0, 'amount_due': 5500, 'currency': 'INR', 'receipt': 'order_rcptid_12', 'offer_id': None, 'status': 'created', 'attempts': 0, 'notes': [], 'created_at': 1715940266}
+        order_id = payment_response['id']
+        order_status = payment_response['status']
+        if order_status == 'created':
+             payment = Payment(
+                 user=user,
+                 amount=razoramount,
+                 razorpay_order_id=order_id,
+                 razorpay_payment_status = order_status
+             )
+             payment.save()
         context = {
             'user': user,
             'addresses': addresses,
             'cart_items': cart_items,
-            'total_amount': total_amount
+            'total_amount': total_amount,
+            'razoramount' : razoramount,
+            'order_id' : order_id
         }
         return render(request, 'home/checkout.html',context)
+
+
+def payment_done(request):
+    order_id=request.GET.get('order_id') 
+    payment_id=request.GET.get('payment_id') 
+    cust_id=request.GET.get('cust_id') 
+    #print("payment_done : oid = ",order_id," pid = ",payment_id," cid = ",cust_id)
+    user=request.user 
+    #return redirect("orders")
+    customer=Customer.objects.get(id=cust_id)
+    #To update payment status and payment id
+    payment=Payment.objects.get(razorpay_order_id=order_id)
+    payment.paid = True
+    payment.razorpay_payment_id = payment_id
+    payment.save()
+    #To save order details
+    cart=Cart.objects.filter(user=user) 
+    for c in cart:
+        OrderPlaced(user=user,customer=customer,product=c.product,quantity=c.quantity,payment=payment).save()
+        c.delete()
+    return redirect("orders")        
    
 
 
 
-# def plus_cart(request):
-#     if request.method == 'GET':
-#         prod_id = request.GET.get('prod_id')
-#         user = request.user
-        
-#         # Retrieve the product
-#         try:
-#             product = Products.objects.get(id=prod_id)
-#         except Product.DoesNotExist:
-#             return JsonResponse({'error': 'Product does not exist'}, status=400)
-        
-#         # Check if the cart item already exists for the specified product and user
-#         try:
-#             cart_item = Cart.objects.get(product=product, user=user)
-#             # If the cart item exists, update the quantity
-#             cart_item.quantity += 1
-#             cart_item.save()
-#         except Cart.DoesNotExist:
-#             # If the cart item does not exist, create a new cart item with quantity 1
-#             Cart.objects.create(product=product, user=user, quantity=1)
-        
-#         # Calculate amount and total amount
-#         cart = Cart.objects.filter(user=user)
-#         amount = sum(p.quantity * p.product.discounted_price for p in cart)
-#         totalamount = amount + 40
-        
-#         # Prepare data to be sent in the JSON response
-#         data = {
-#             'quantity': cart_item.quantity if cart_item else 1,  # Return 1 if cart item does not exist
-#             'amount': amount,
-#             'totalamount': totalamount
-#         }
-#         return JsonResponse(data)
-
-            
+     
 
 
 

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-k16g^2oy^b@pgafi=2jo9yneq+%s6t$t431m3g-r=tn!+lfhhw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-samiksha92-mangop5-5sneztgqwdg.ws-us110.gitpod.io']
+ALLOWED_HOSTS = ['8000-samiksha92-mangop5-5sneztgqwdg.ws-us114.gitpod.io']
 
 
 # Application definition
@@ -162,3 +162,8 @@ MEDIA_ROOT = BASE_DIR/'media'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+RAZOR_KEY_ID = "rzp_test_laxsaW9pJ47uxt"
+RAZOR_KEY_SECRET = "Il3RqmJDXiXNSMa6uwMZVmQG"
