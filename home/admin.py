@@ -22,4 +22,4 @@ class PaymentModelAdmin(admin.ModelAdmin):
     list_display = ['id','user','amount','razorpay_order_id','razorpay_payment_status','razorpay_payment_id','paid']  
 
 class OrderPlacedModelAdmin(admin.ModelAdmin): 
-    list_display=['id','user','customer','product','quantity','ordered_date','status','payments']
+    list_display=['id','user','customer','product','quantity','ordered_date','status','payment']
