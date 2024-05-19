@@ -38,13 +38,12 @@ urlpatterns = [
     path('login/', auth_view.LoginView.as_view(template_name='home/login.html', authentication_form=LoginForm) , name='login'),
     path('success/', views.success_page, name='success-page'),
     path('logout/', auth_view.LogoutView.as_view(next_page='login') , name='logout'),
-
-
+    path('search/',views.search, name = 'search'),
     path('add-to-cart/', views.add_to_cart, name='add-to-cart'),
     path('cart/', views.show_cart, name='showcart'),
     path('checkout/', views.checkout.as_view(), name='checkout'),
     path('paymentdone/', views.payment_done, name='paymentdone'),
-    path('orders/', views.index, name='orders'),
+    path('orders/', views.orders, name='orders'),
     path('pluscart/', views.plus_cart,name = 'plus_cart'),
     path('minuscart/', views.minus_cart,name = 'minus_cart'), 
     path('removecart/', views.remove_cart,name = 'remove_cart'),

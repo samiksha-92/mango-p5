@@ -22,7 +22,14 @@ from django.conf import settings
 
 # Create your views here.
 def index(request):
-    return render (request,'home/index.html')
+    totalitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=request.user))
+        context = {
+            'totalitem' : totalitem
+        } 
+    return render (request,'home/index.html',context)
+
 
 def about(request):
     return render (request,'home/about.html')    
@@ -30,10 +37,14 @@ def about(request):
 
 class CategoryView(View):
     def get(self,request,category):
+        totalitem = 0
+        if request.user.is_authenticated:
+          totalitem = len(Cart.objects.filter(user=request.user))
         context = {
             'category' : category,
             'product_queryset' : Products.objects.filter(category=category),
             'title' : Products.objects.filter(category=category).values('title'),
+            'totalitem' : totalitem
             
         }
         
@@ -42,14 +53,21 @@ class CategoryView(View):
 
 class ProductDetail(View):
     def get (self,request,pk):
+        totalitem = 0
+        if request.user.is_authenticated:
+          totalitem = len(Cart.objects.filter(user=request.user))
         product = get_object_or_404(Products,pk=pk)
-        context = {'product' : product}
+        context = {'product' : product,
+        'totalitem': totalitem}
         
         return render(request,'home/productdetail.html', context)
 
 
 class CategoryTitle(View):
     def get(self, request, category):
+        totalitem = 0
+        if request.user.is_authenticated:
+          totalitem = len(Cart.objects.filter(user=request.user))
         sort_by = request.GET.get('sort_by')
         products = Products.objects.filter(title=category)
     
@@ -62,8 +80,9 @@ class CategoryTitle(View):
     
         context ={
             'category' : category,
-            'product_queryset' :products
-        }
+            'product_queryset' :products,
+            'totalitem': totalitem,
+        } 
 
         return render(request, 'home/category.html', context)
     
@@ -76,9 +95,13 @@ def success_page(request):
 
 class CustomerRegistrationView(View):
     def get(self, request):
+        totalitem = 0
+        if request.user.is_authenticated:
+          totalitem = len(Cart.objects.filter(user=request.user))
         form = CustomerRegistrationForm()
         context = {
             'form': form,
+            'totalitem' : totalitem
         }
         return render (request,'home/customerregistration.html',context)
     def post(self,request):
@@ -104,9 +127,13 @@ class CustomerRegistrationView(View):
 
 class ProfileView(View):
     def get(self, request):
+        totalitem = 0
+        if request.user.is_authenticated:
+          totalitem = len(Cart.objects.filter(user=request.user))
         form = CustomerProfileForm()
         context = {
-            'form' : form
+            'form' : form,
+            'totalitem' : totalitem,
         }
         return render(request,'home/profile.html',context)
 
@@ -141,11 +168,15 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def address(request):
+    totalitem = 0
+    if request.user.is_authenticated:
+          totalitem = len(Cart.objects.filter(user=request.user))
     print("User:", request.user)  # Debugging statement
     address = Customer.objects.filter(user=request.user)
     print("Addresses:", address)  # Debugging statement
     context = {
-        'address': address
+        'address': address,
+        'totalitem' :totalitem
     }
     return render(request, 'home/address.html', context)
 
@@ -153,10 +184,14 @@ def address(request):
     
 class updateAddress(View):
     def get(self,request,pk):
+        totalitem = 0
+        if request.user.is_authenticated:
+          totalitem = len(Cart.objects.filter(user=request.user))
         addr = Customer.objects.get (pk=pk)
         form = CustomerProfileForm(instance=addr)
         context = {
-            'form' : form
+            'form' : form,
+            'totalitem' :totalitem,
         }
         return render(request,'home/updateaddress.html',context)
 
@@ -246,7 +281,10 @@ def show_cart(request):
     for p in cart:
         value = p.quantity * p.product.discounted_price
         amount = amount + value
-    totalamount = amount + 40
+        totalamount = amount + 40
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=request.user))
+
     return render (request, 'home/addtocart.html', locals())
 
 # class checkout(View):
@@ -289,6 +327,10 @@ def show_cart(request):
 
 class checkout(View):
      def get(self,request):
+        totalitem = 0
+        if request.user.is_authenticated:
+           totalitem = len(Cart.objects.filter(user=request.user))
+        
         user = request.user
         addresses = Customer.objects.filter(user=user)
         cart_items=Cart.objects.filter(user=user)  
@@ -319,7 +361,8 @@ class checkout(View):
             'cart_items': cart_items,
             'total_amount': total_amount,
             'razoramount' : razoramount,
-            'order_id' : order_id
+            'order_id' : order_id,
+            'totalitem' : totalitem,
         }
         return render(request, 'home/checkout.html',context)
 
@@ -344,6 +387,16 @@ def payment_done(request):
         c.delete()
     return redirect("orders")        
    
+def orders(request):
+    totalitem = 0
+    if request.user.is_authenticated:
+        totalitem = len(Cart.objects.filter(user=request.user))
+    order_placed=OrderPlaced.objects.filter(user=request.user) 
+    context ={
+        'order_placed': order_placed,
+        'totalitem' :totalitem
+    }
+    return render(request, 'home/orders.html' ,context)
 
 
 
@@ -391,8 +444,6 @@ def minus_cart(request):
         }
         return JsonResponse(data)
 
-
-
 def remove_cart(request):
     if request.method == 'GET':
         prod_id=request.GET['prod_id']
@@ -409,7 +460,33 @@ def remove_cart(request):
             'amount':amount,
             'totalamount':totalamount
         }
-        return JsonResponse(data)             
+        return JsonResponse(data)  
 
 
+def search(request):
+    query = request.GET.get('search')
+    totalitem = 0
+    product = None  # Initialize product variable
+    if query:
+        if request.user.is_authenticated:
+            totalitem = len(Cart.objects.filter(user=request.user))
+        product = Products.objects.filter(title__icontains=query)
+    context = {
+        'totalitem': totalitem,
+        'product': product,
+    }  
+    return render(request, 'home/search.html', context)
+
+
+# def search(request):
+#     query = request.GET['search']
+#     totalitem = 0
+#     if request.user.is_authenticated:
+#         totalitem = len(Cart.objects.filter(user=request.user))
+#         product = Products.objects.filter(Q(title_icontains = query))
+#     context = {
+#         'totalitem' : totalitem,
+#         'product' : product,
+#     }  
+#     return render (request,'home/search.html',context)  
 

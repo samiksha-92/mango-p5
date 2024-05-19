@@ -62,15 +62,14 @@
     </div>
 </div>
 {% endblock main-content %}
-
 {% block payment-gateway %}
 <script>
     var options = {
-        "key": "rzp_test_laxsaW9pJ47uxt", // Enter the Key ID generated from the Dashboard
+
         "amount": "{{razoramount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         "currency": "INR",
         "name": "Mango More",
-        "description": "Thriftstore for Mango Products",
+
         "order_id": "{{order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         "handler": function (response) {
             console.log("success")
