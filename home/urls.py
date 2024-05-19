@@ -58,5 +58,9 @@ urlpatterns = [
 
 ]+ static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
 
+admin.site.site_header = "MangoMore Administration"
+admin.site.site_title = "MangoMore"
+admin.site.site_index_title = "Welcome to MangoMore Thriftstore"
+
 
 
