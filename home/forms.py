@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm,UsernameField,PasswordResetForm,PasswordChangeForm,SetPasswordForm
 from django.contrib.auth.models import User
-from .models import Customer
+from .models import Customer,Products
 from django.views.decorators.csrf import csrf_protect
 
 from django.shortcuts import render
@@ -53,3 +53,9 @@ class CustomerProfileForm(forms.ModelForm):
             'zipcode':forms.NumberInput(attrs={'class':'form-control'}),
         }
     
+
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Products
+        fields = ['title', 'selling_price', 'discounted_price', 'description', 'category', 'product_image']
+        

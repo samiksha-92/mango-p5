@@ -31,6 +31,11 @@ urlpatterns = [
     path('profile/', views.ProfileView.as_view(), name='profile'),
     path('address/', views.address, name='address'),
     path('updateAddress/<int:pk>', views.updateAddress.as_view(), name='updateAddress'),
+    #Storeowner website admin panel 
+    path('products/', views.product_list, name='product_list'),
+    path('products/add/', views.add_product, name='add_product'),
+    path('products/update/<int:pk>/', views.update_product, name='update_product'),
+    path('products/delete/<int:pk>/', views.delete_product, name='delete_product'),
     
     #login authentication
     path('customer-registration/', views.CustomerRegistrationView.as_view(), name='customer-registration'),

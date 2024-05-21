@@ -83,6 +83,18 @@
                 <li class="nav-item">
                     <a class="nav-link text-white">Contact Us</a>
                 </li>
+                {% if request.user.is_superuser %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown"
+                        aria-expanded="false">
+                        Admin
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'product_list' %}">Manage Products</a>
+                        <a class="dropdown-item" href="{% url 'add_product' %}">Add New Product</a>
+                    </div>
+                </li>
+                {% endif %}
             </ul>
             <form class="d-flex" role="search" action="/search">
                 <input class="form-control me-2" type="search" placeholder="Search" name="search" aria-label="Search">

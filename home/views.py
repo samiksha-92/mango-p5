@@ -2,14 +2,13 @@ from urllib import request
 
 from django.db.models import Count
 from django.http import HttpResponse
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from django.views import View
 from  .models import Products,Customer,Cart,Payment,OrderPlaced
-from .forms import CustomerProfileForm,CustomerRegistrationForm
+from .forms import CustomerProfileForm,CustomerRegistrationForm,ProductForm
 from django.contrib import messages
-from django.shortcuts import redirect
 from django.contrib.auth.views import PasswordChangeView
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import JsonResponse
 from django.db.models import Q
@@ -19,6 +18,7 @@ from django.utils.decorators import method_decorator
 from django.core.exceptions import ObjectDoesNotExist
 import razorpay
 from django.conf import settings
+
 
 
 
@@ -162,7 +162,7 @@ class ProfileView(View):
 #     }
 #     return render(request,'home/address.html',context)
 
-from django.contrib.auth.decorators import login_required
+
 
 @login_required
 def address(request):
@@ -218,7 +218,7 @@ class updateAddress(View):
 #     return redirect("/cart")
 
 
-# from django.db.models import Q
+
 @login_required
 def add_to_cart(request):
     user = request.user
@@ -375,9 +375,9 @@ def payment_done(request):
     order_id=request.GET.get('order_id') 
     payment_id=request.GET.get('payment_id') 
     cust_id=request.GET.get('cust_id') 
-    #print("payment_done : oid = ",order_id," pid = ",payment_id," cid = ",cust_id)
+    print("payment_done : oid = ",order_id," pid = ",payment_id," cid = ",cust_id)
     user=request.user 
-    #return redirect("orders")
+    return redirect("orders")
     customer=Customer.objects.get(id=cust_id)
     #To update payment status and payment id
     payment=Payment.objects.get(razorpay_order_id=order_id)
@@ -477,15 +477,46 @@ def search(request):
     return render(request, 'home/search.html', context)
 
 
-# def search(request):
-#     query = request.GET['search']
-#     totalitem = 0
-#     if request.user.is_authenticated:
-#         totalitem = len(Cart.objects.filter(user=request.user))
-#         product = Products.objects.filter(Q(title_icontains = query))
-#     context = {
-#         'totalitem' : totalitem,
-#         'product' : product,
-#     }  
-#     return render (request,'home/search.html',context)  
+# Helper function to check if the user is a superuser
+def is_superuser(user):
+    return user.is_superuser
 
+@user_passes_test(is_superuser)
+def add_product(request):
+    if request.method == "POST":
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('product_list')
+    else:
+        form = ProductForm()  # Initialize the form here for GET request
+
+    return render(request, 'home/add_product.html', {'form': form})
+
+
+@user_passes_test(is_superuser)
+def update_product(request, pk):
+    product = get_object_or_404(Products, pk=pk)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('product_list')
+    else:
+        form = ProductForm(instance=product)
+    
+    return render(request, 'home/update_product.html', {'form': form, 'product': product})
+
+@user_passes_test(is_superuser)
+def delete_product(request,pk):
+    product = get_object_or_404(Products, pk=pk)
+    if request.method == 'POST':
+        product.delete()
+        return redirect('product_list')
+    return render(request, 'home/delete_product.html', {'product': product})
+
+
+@user_passes_test(is_superuser)
+def product_list(request):
+    products = Products.objects.all()
+    return render(request, 'home/product_list.html', {'products': products})    
