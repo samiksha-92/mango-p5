@@ -23,7 +23,7 @@ from django.conf import settings
 
 
 # Create your views here.
-@login_required
+
 def index(request):
     totalitem = 0
     if request.user.is_authenticated:

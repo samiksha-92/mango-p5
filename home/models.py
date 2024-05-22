@@ -19,7 +19,7 @@ class Products (models.Model):
     discounted_price = models.FloatField()
     description = models.TextField()
     category = models.CharField(choices=CATEGORY_CHOICES,max_length=3)
-    product_image = models.ImageField(upload_to = 'product')
+    product_image = models.ImageField(upload_to = 'product',blank=True,null=True)
     def __str__(self):
         return self.title
         
@@ -84,7 +84,7 @@ class Cart(models.Model):
 
     @property
     def total_cost(self):
-        return self.quantity * self.products.discounted_price   
+        return self.quantity * self.product.discounted_price   
 
 
 
