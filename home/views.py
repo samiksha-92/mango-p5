@@ -24,6 +24,7 @@ from django.conf import settings
 
 # Create your views here.
 
+@login_required
 def index(request):
     totalitem = 0
     if request.user.is_authenticated:
@@ -32,6 +33,10 @@ def index(request):
             'totalitem' : totalitem
         } 
     return render (request,'home/index.html',context)
+
+
+def login_view(request):
+    return render(request, 'home/login.html')    
 
 
 def about(request):
@@ -288,43 +293,6 @@ def show_cart(request):
 
     return render (request, 'home/addtocart.html', locals())
 
-# class checkout(View):
-#     def get(self,request):
-#         user = request.user 
-#         addresses = Customer.objects.filter(user=user) 
-#         cart_items = Cart.objects.filter(user=user)  
-        
-#         # Calculate total amount
-#         total_amount = sum(item.quantity * item.product.discounted_price for item in cart_items) + 40
-        
-#         # Razorpay integration
-#         razorpay_client = razorpay.Client(auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
-#         razor_amount = int(total_amount * 100)
-#         razor_data = {"amount": razor_amount, "currency": "INR", "receipt": "order_rcptid_12"}
-#         payment_response = razorpay_client.order.create(data=razor_data) #prints the payment response
-#         order_id = payment_response['id']
-#         order_status = payment_response['status']
-        
-#         # Save payment information
-#         if order_status == 'created':
-#              payment = Payment(
-#                  user=user,
-#                  amount=total_amount,
-#                  razorpay_order_id=order_id,
-#                  razorpay_payment_status=order_status
-#              )
-#              payment.save()
-        
-#         context = {
-           
-#             'user': user,
-#             'addresses': addresses,
-#             'cart_items': cart_items,
-#             'total_amount': total_amount,
-#             'razoramount': razor_amount,
-#             'order_id': order_id,
-#         }
-#         return render(request, 'home/checkout.html', context)
 
 
 @method_decorator(login_required,name='dispatch')
