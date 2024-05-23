@@ -1,0 +1,1 @@
+web: gunicorn mangomore.wsgi:application
