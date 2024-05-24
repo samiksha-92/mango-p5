@@ -27,8 +27,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = 'DEVELOPMENT' in os.environ
-DEBUG = True
+DEBUG = 'DEVELOPMENT' in os.environ
+# DEBUG = False
 
 ALLOWED_HOSTS = ['8000-samiksha92-mangop5-5sneztgqwdg.ws-us110.gitpod.io','8000-samiksha92-mangop5-5sneztgqwdg.ws-us114.gitpod.io', 'mangomore-p5-34ee68d9d875.herokuapp.com','localhost']
 
@@ -195,5 +195,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-RAZOR_KEY_ID = "rzp_test_laxsaW9pJ47uxt"
-RAZOR_KEY_SECRET = "Il3RqmJDXiXNSMa6uwMZVmQG"
+RAZOR_KEY_ID = os.environ.get("RAZOR_KEY_ID")
+RAZOR_KEY_SECRET = os.environ.get("RAZOR_KEY_SECRET")
