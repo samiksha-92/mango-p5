@@ -488,3 +488,9 @@ def delete_product(request,pk):
 def product_list(request):
     products = Products.objects.all()
     return render(request, 'home/product_list.html', {'products': products})    
+
+def custom_404_handler(request, exception):
+    """
+    Custom handler for 404 errors (page not found).
+    """
+    return render(request, 'home/404.html', status=404)    

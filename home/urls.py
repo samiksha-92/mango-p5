@@ -20,6 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_view
 from .forms import LoginForm, PasswordResetForm, PasswordChangeForm,SetPasswordForm
+from .views import custom_404_handler
 
 
 urlpatterns = [
@@ -62,6 +63,9 @@ urlpatterns = [
    
 
 ]+ static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
+
+# Define your custom handler for 404 errors
+handler404 = custom_404_handler
 
 admin.site.site_header = "MangoMore Administration"
 admin.site.site_title = "MangoMore"
