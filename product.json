@@ -1,0 +1,177 @@
+[{
+    "model": "home.products",
+    "pk": 1,
+    "fields": {
+        "title": "Wool Blend Jacket",
+        "selling_price": 50.0,
+        "discounted_price": 30.0,
+        "description": "wool mix fabric, straight design, crossover design, v-neck, long sleeve, loops, two welt pockets on the front, ribbon on the waist with tie closure",
+        "category": "DR",
+        "product_image": "product/1d55fd73-b05f-422e-89f7-506a95b6b47f.jpg"
+    }
+}, {
+    "model": "home.products",
+    "pk": 2,
+    "fields": {
+        "title": "Linen Dress",
+        "selling_price": 35.0,
+        "discounted_price": 15.0,
+        "description": "linen mix, midi design, straight design, wrap collar, v-neck, sleeveless, invisible back zip fastening, belt buckle fastening",
+        "category": "DR",
+        "product_image": "product/mango_linen_dress.png"
+    }
+}, {
+    "model": "home.products",
+    "pk": 3,
+    "fields": {
+        "title": "Bow Closure dress",
+        "selling_price": 22.99,
+        "discounted_price": 10.0,
+        "description": "linen mix, straight design, short design, straight neck, thin straps with bow closure, side zip fastening, beaded detail, festival season, office looks dress.",
+        "category": "DR",
+        "product_image": "product/bow_closure_dress.png"
+    }
+}, {
+    "model": "home.products",
+    "pk": 4,
+    "fields": {
+        "title": "Sea Green Dress with Decorative Belt",
+        "selling_price": 29.99,
+        "discounted_price": 13.0,
+        "description": "100% linen fabric, straight design, short design, rounded neck, frill detail, sleeveless, decorative belt, zip fastening on the back section, office looks dress",
+        "category": "DR",
+        "product_image": "product/decorative_sea_green_dress_.png"
+    }
+}, {
+    "model": "home.products",
+    "pk": 5,
+    "fields": {
+        "title": "Floral Pink Dress",
+        "selling_price": 119.0,
+        "discounted_price": 40.0,
+        "description": "cotton and linen mix, midi design, oversize design, flowered embroidery, v-neck, short sleeve, hem with side slits, beaded detail, co-ord.",
+        "category": "DR",
+        "product_image": "product/floral_pink_dress.png"
+    }
+}, {
+    "model": "home.products",
+    "pk": 6,
+    "fields": {
+        "title": "High Waist Linen Dress",
+        "selling_price": 19.0,
+        "discounted_price": 5.0,
+        "description": "midi design, linen mix, elastic band, evase design, long design, high waist, elasticated waist, lace fastening in an elegant combination of white and mustard yellow",
+        "category": "DR",
+        "product_image": "product/highwaistdress.png"
+    }
+}, {
+    "model": "home.products",
+    "pk": 7,
+    "fields": {
+        "title": "Crochet Crewneck Dress",
+        "selling_price": 50.0,
+        "discounted_price": 25.0,
+        "description": "cotton fabric, crochet fabric, tailored design, short design, crew neck, thin straps, back neckline, unclosed, inner lining, with beautiful detailing in beige colour",
+        "category": "DR",
+        "product_image": "product/crochet_crewneck_dress.png"
+    }
+}, {
+    "model": "home.products",
+    "pk": 8,
+    "fields": {
+        "title": "Lavendar Knit Dress",
+        "selling_price": 99.0,
+        "discounted_price": 40.0,
+        "description": "selection collection, cable knit fabric, short design, combined design, puffed design, asymmetric neckline, sleeveless, wide strap, off-shoulder, unclosed, elastic hem, made with quality materials to create a feminine and contemporary wardrobe for special occasions.",
+        "category": "DR",
+        "product_image": "product/Lavendar_dress.png"
+    }
+}, {
+    "model": "home.products",
+    "pk": 9,
+    "fields": {
+        "title": "Breeze Bliss Cotton Shirt",
+        "selling_price": 10.0,
+        "discounted_price": 5.0,
+        "description": "Elevate your summer style with our Breeze Bliss Cotton shirt from Mango. Crafted with breathable fabric and adorned with a captivating blend of cool tones, this shirt offers both comfort and sophistication. Whether you're strolling along the beach or enjoying a rooftop cocktail, its relaxed fit and refreshing colors ensure you stay effortlessly chic in the heat.",
+        "category": "SH",
+        "product_image": "product/breeze_bliss_shirt.jpg"
+    }
+}, {
+    "model": "home.products",
+    "pk": 10,
+    "fields": {
+        "title": "Icy Blue Shirt",
+        "selling_price": 20.0,
+        "discounted_price": 10.0,
+        "description": "Embrace icy elegance with our eponymous shirt from Mango. Featuring a sophisticated palette of frosty blues and whites, this shirt adds a touch of refinement to any ensemble. Its tailored silhouette and subtle sheen make it ideal for both office attire and evening occasions, ensuring you radiate poise and grace with every wear. Available in Size M",
+        "category": "SH",
+        "product_image": "product/Icy_blue_shirt.jpg"
+    }
+}, {
+    "model": "home.products",
+    "pk": 11,
+    "fields": {
+        "title": "Minty Marvel Shirt",
+        "selling_price": 40.0,
+        "discounted_price": 15.0,
+        "description": "Make a statement in mint with our Minty Marvel shirt from Mango. This vibrant piece features a striking shade of mint green that exudes freshness and vitality. Whether paired with denim shorts for a daytime look or tucked into a skirt for evening elegance, this shirt is sure to turn heads wherever you go.",
+        "category": "SH",
+        "product_image": "product/minty_marvel_shirt.jpg"
+    }
+}, {
+    "model": "home.products",
+    "pk": 12,
+    "fields": {
+        "title": "Mustard Tote Bag",
+        "selling_price": 40.0,
+        "discounted_price": 30.0,
+        "description": "Elevate your style quotient with the chic and versatile Mango Mustard Tote Bag. This exquisite piece from Mango combines functionality with fashion, making it the perfect accessory for any modern woman's wardrobe.\r\n\r\nCare Instructions:\r\nTo maintain the beauty of your Mango Mustard Tote Bag, wipe it clean with a soft, damp cloth. Avoid exposure to excessive moisture and store it in a cool, dry place when not in use.",
+        "category": "ACC",
+        "product_image": "product/Mustard_Tote_Bag.jpg"
+    }
+}, {
+    "model": "home.products",
+    "pk": 13,
+    "fields": {
+        "title": "Drop Earrings",
+        "selling_price": 5.0,
+        "discounted_price": 10.0,
+        "description": "Add a touch of elegance and sophistication to your look with Stylish Drop Earrings. These stunning earrings from Mango are designed to make a statement, blending contemporary fashion with timeless charm. Perfect for any occasion, they are a must-have accessory in every woman's jewelry collection.",
+        "category": "ACC",
+        "product_image": "product/Drop_Earrings.jpg"
+    }
+}, {
+    "model": "home.products",
+    "pk": 14,
+    "fields": {
+        "title": "Stud Earrings",
+        "selling_price": 5.0,
+        "discounted_price": 2.0,
+        "description": "The Mango Women's Stud Earrings are a versatile addition to your jewelry collection. Their classic design and high-quality craftsmanship make them a perfect gift for yourself or a loved one. Whether you're dressing up for a special occasion or adding a touch of sparkle to your everyday wear, these earrings are the perfect choice.",
+        "category": "ACC",
+        "product_image": "product/Stud_Earrings.jpg"
+    }
+}, {
+    "model": "home.products",
+    "pk": 15,
+    "fields": {
+        "title": "Beach Sandals",
+        "selling_price": 15.0,
+        "discounted_price": 10.0,
+        "description": "These sandals are designed to provide a perfect blend of elegance and practicality, making them an ideal choice for any fashion-forward woman. Whether you're heading to the beach, a casual outing, or a summer party, these sandals will complement your look effortlessly.",
+        "category": "ACC",
+        "product_image": "product/Sandals.jpg"
+    }
+}, {
+    "model": "home.products",
+    "pk": 16,
+    "fields": {
+        "title": "Pearl Pendant Necklace",
+        "selling_price": 10.0,
+        "discounted_price": 5.0,
+        "description": "Add a touch of sophistication and elegance to your jewelry collection with the Mango Women's Chic Pendant Necklace. This exquisite pearl pendant is designed to complement any outfit, making it the perfect accessory for both everyday wear and special occasions.",
+        "category": "ACC",
+        "product_image": "product/Boho_Necklace.jpg"
+    }
+}]

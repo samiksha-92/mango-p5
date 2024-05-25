@@ -11,8 +11,6 @@ CATEGORY_CHOICES = (
 
 )
 
-
-
 class Products (models.Model):
     title = models.CharField(max_length=100)
     selling_price = models.FloatField()
