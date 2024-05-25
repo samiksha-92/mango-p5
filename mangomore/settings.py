@@ -33,14 +33,14 @@ DEBUG = 'DEVELOPMENT' in os.environ
 ALLOWED_HOSTS = ['8000-samiksha92-mangop5-5sneztgqwdg.ws-us110.gitpod.io','8000-samiksha92-mangop5-5sneztgqwdg.ws-us114.gitpod.io', 'mangomore-p5-34ee68d9d875.herokuapp.com','localhost']
 
 
-# Email settings
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.environ.get('DJANGO_EMAIL_HOST_ADDR')
-EMAIL_PORT = int(os.environ.get('DJANGO_EMAIL_PORT'))
-EMAIL_HOST_USER = os.environ.get('DJANGO_EMAIL_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('DJANGO_EMAIL_PASS')
-EMAIL_USE_TLS = os.environ.get('DJANGO_EMAIL_USE_TLS') == 'True'
-DEFAULT_FROM_EMAIL = os.environ.get('DJANGO_DEFAULT_FROM')
+# # Email settings
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = os.environ.get('DJANGO_EMAIL_HOST_ADDR')
+# EMAIL_PORT = int(os.environ.get('DJANGO_EMAIL_PORT'))
+# EMAIL_HOST_USER = os.environ.get('DJANGO_EMAIL_USER')
+# EMAIL_HOST_PASSWORD = os.environ.get('DJANGO_EMAIL_PASS')
+# EMAIL_USE_TLS = os.environ.get('DJANGO_EMAIL_USE_TLS') == 'True'
+# DEFAULT_FROM_EMAIL = os.environ.get('DJANGO_DEFAULT_FROM')
 
 # Application definition
 
@@ -78,10 +78,10 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1  # new
 
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 #LOGIN_URL = '/accounts/login/'
@@ -207,7 +207,7 @@ if 'USE_AWS' in os.environ:
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
 RAZOR_KEY_ID = os.environ.get("RAZOR_KEY_ID")
