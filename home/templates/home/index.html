@@ -117,6 +117,22 @@
         </a>
       </div>
     </div>
+    <!-- Mailchimp signup form -->
+    <div class="row">
+      <div class="col text-center">
+        <form action="https://yourmailchimpurl.com" method="post">
+          <div class="form-group">
+            <label for="email">Subscribe to our newsletter:</label>
+            <input type="email" class="form-control" id="email" name="EMAIL" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="gdpr" name="gdpr" required>
+            <label class="form-check-label" for="gdpr">I agree to the GDPR terms</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+      </div>
+    </div>
   </div>
 </footer>
 {% endblock footer %}
