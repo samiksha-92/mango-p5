@@ -1,0 +1,10 @@
+# robots.txt for MangoMore
+
+User-agent: *
+Disallow: /admin/
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /account/
+Allow: /
+
+Sitemap: https://mangomore-p5-34ee68d9d875.herokuapp.com//sitemap.xml
