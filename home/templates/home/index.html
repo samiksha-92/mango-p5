@@ -3,20 +3,26 @@
 
 {% block title %} Home Page {% endblock title %}
 
+<!-- Add meta description within the head section -->
+{% block extra_head %}
+<meta name="description"
+  content="Welcome to MangoMore - the thrift store exclusively for your mango favorites. Browse our wide variety of excellently maintained second-hand clothes and bags at exciting prices all year long.">
+{% endblock extra_head %}
+
 {% block banner_slider %}
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img src="{% static 'home/images/banner/banner/banner1.jpg' %}" width="100" height="100"
-        class="d-block w-100 img-fluid" alt="banner image 1">
+        class="d-block w-100 img-fluid" alt="banner image 1 home page">
     </div>
     <div class="carousel-item">
       <img src="{% static 'home/images/banner/banner/banner2.jpg' %}" class="d-block w-100 img-fluid"
-        alt="banner image 2">
+        alt="banner image 2 home page">
     </div>
     <div class="carousel-item">
       <img src="{% static 'home/images/banner/banner/banner3.jpg' %}" class="d-block w-100 img-fluid"
-        alt="banner image 3">
+        alt="banner image 3 home page">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">
@@ -48,53 +54,69 @@
 {% if request.user.is_authenticated %}
 {% block main-content %}
 <div class="container">
-  <h2 class="text-center"> Welcome To MangoMore</h2>
-  <br> </br>
-  <div class="row-container">
-    <div class="col mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
-      style="animation-duration:1s;animation-delay: 0.6s; animation-name: none;">
-      <div class="none image_decor smbg">
-        <a href="{% url 'category' 'SH' %}">
+  <h1 class="text-center"> Welcome To MangoMore - Your favourite thriftstore/h1>
+    <br> </br>
+    <div class="row-container">
+      <div class="col mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
+        style="animation-duration:1s;animation-delay: 0.6s; animation-name: none;">
+        <div class="none image_decor smbg">
+          <a href="{% url 'category' 'SH' %}">
 
-          <div class="width text-center image-container">
-            <img src="{% static 'home/images/products/model.png' %}" class="img-fluid" alt="">
-            <p class="pro"> Shirts</p>
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <div class="col mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
-      style="animation-duration:1s;animation-delay: 0.6s; animation-name: none;">
-      <div class="none image_decor middle">
-        <a href="{% url 'category' 'DR' %}">
-
-          <div class="width text-center">
-            <img src="{% static 'home/images/products/dresses.png' %}" class="img-fluid" alt="">
-            <p class=" pro"> Dresses</p>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
-      style="animation-duration:1s;animation-delay: 0.6s; animation-name: none;">
-      <div class="none image_decor image_decor">
-        <a href="{% url 'category' 'ACC' %}">
-
-          <div class="width text-center">
-            <img src="{% static 'home/images/products/accessory.png' %}" class="img-fluid" alt="">
-
-            <p class=" pro"> Accessories </p>
-          </div>
-
-        </a>
+            <div class="width text-center image-container">
+              <img src="{% static 'home/images/products/model.png' %}" class="img-fluid" alt="Shirts">
+              <p class="pro"> Shirts</p>
+            </div>
+          </a>
+        </div>
       </div>
 
-    </div>
+      <div class="col mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
+        style="animation-duration:1s;animation-delay: 0.6s; animation-name: none;">
+        <div class="none image_decor middle">
+          <a href="{% url 'category' 'DR' %}">
 
-  </div>
+            <div class="width text-center">
+              <img src="{% static 'home/images/products/dresses.png' %}" class="img-fluid" alt="Dresses">
+              <p class=" pro"> Dresses</p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col mi-go wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s"
+        style="animation-duration:1s;animation-delay: 0.6s; animation-name: none;">
+        <div class="none image_decor image_decor">
+          <a href="{% url 'category' 'ACC' %}">
+
+            <div class="width text-center">
+              <img src="{% static 'home/images/products/accessory.png' %}" class="img-fluid" alt="Accessories">
+
+              <p class=" pro"> Accessories </p>
+            </div>
+
+          </a>
+        </div>
+
+      </div>
+
+    </div>
 </div>
 
 <br> </br>
 {% endblock main-content %}
 {% endif %}
+
+{% block footer %}
+<!-- Footer section with Facebook link -->
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col text-center">
+        <!-- Facebook link with rel='noopener' attribute -->
+        <a href="https://www.facebook.com/your-facebook-page" target="_blank" rel="noopener">
+          <img src="{% static 'home/images/facebook.png' %}" alt="Facebook">
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+{% endblock footer %}
